@@ -1,67 +1,128 @@
-# {{PROBLEM}} Multi-Class Planned Design Recipe
+# Diary Multi-Class Planned Design Recipe
 
 ## 1. Describe the Problem
 
-_Put or write the user story here. Add any clarifying notes you might have._
+As a user
+So that I can record my experiences
+I want to keep a regular diary
+
+As a user
+So that I can reflect on my experiences
+I want to read my past diary entries
+
+As a user
+So that I can reflect on my experiences in my busy day
+I want to select diary entries to read based on how much time I have and my reading speed
+
+As a user
+So that I can keep track of my tasks
+I want to keep a todo list along with my diary
+
+As a user
+So that I can keep track of my contacts
+I want to see a list of all of the mobile phone numbers in all my diary entries
 
 ## 2. Design the Class System
 
-_Consider diagramming out the classes and their relationships. Take care to
-focus on the details you see as important, not everything. The diagram below
-uses asciiflow.com but you could also use excalidraw.com, draw.io, or miro.com_
+Diary => list, add(DiaryEntry instances), read_chunk, find_phone
+DiaryEntry => init(title, contents)
+TaskList => list, add
+Task => init(@task)
 
 ```
-┌────────────────────────────┐
-│ MusicPlayer                │
-│                            │
-│ - add(track)               │
-│ - all                      │
-│ - search_by_title(keyword) │
-│   => [tracks...]           │
-└───────────┬────────────────┘
-            │
-            │ owns a list of
-            ▼
-┌─────────────────────────┐
-│ Track(title, artist)    │
-│                         │
-│ - title                 │
-│ - artist                │
-│ - format                │
-│   => "TITLE by ARTIST"  │
-└─────────────────────────┘
+│
+│
+│   ┌─────────────────────────┐
+│   │         Diary           │           ┌──────────────────────┐
+│   ├─────────────────────────┤           │        Task          │
+│   │                         │           ├──────────────────────┤
+│   │    List                 │           │                      │
+│   │    Add                  │           │    init(@task)       │
+│   │    Read_chunk           │           │    task              │
+│   │    Find_Phone           │           │                      │
+│   │                         │           │                      │
+│   └─────────────┬───────────┘           └──────────▲───────────┘
+│                 │                                  │
+│                 │                                  │
+│                 │                                  │
+│                 │                                  │
+│                 │                                  │
+│                 │                                  │
+│    ┌────────────▼────────────┐           ┌─────────┴───────────┐
+│    │       DiaryEntry        │           │        TaskList     │
+│    ├─────────────────────────┤           ├─────────────────────┤
+│    │                         │           │                     │
+│    │    init(title,contents) │           │     List            │
+│    │    title                │           │     Add             │
+│    │    contents             │           │                     │
+│    │                         │           │                     │
+│    │                         │           │                     │
+│    └─────────────────────────┘           │                     │
+│                                          ├─────────────────────┤
+
+
 ```
 
 _Also design the interface of each class in more detail._
 
 ```ruby
-class MusicLibrary
+class Diary
   def initialize
-    # ...
+  # contains list of all our entries
   end
 
-  def add(track) # track is an instance of Track
-    # Track gets added to the library
-    # Returns nothing
+  def add(entry)
+  # add to list of entries
+  # returns nothing
   end
 
-  def all
-    # Returns a list of track objects
+  def list
+  # returns all of our diary entries
   end
-  
-  def search_by_title(keyword) # keyword is a string
-    # Returns a list of tracks with titles that include the keyword
+
+  def read_chunk(wpm, minutes)
+  # returns a string that can be read in the alotted time/speed
+  end
+
+  def find_phone
+  # return a list of all phone numbers across all entries
   end
 end
 
-class Track
-  def initialize(title, artist) # title and artist are both strings
+class DiaryEntry
+  def initialize(title,contents)
+  # stores title and contents of entry
   end
 
-  def format
-    # Returns a string of the form "TITLE by ARTIST"
+  def title
+  # returns entry title
+  end
+
+  def content
+  # returns entry content
   end
 end
+
+class Task
+  def initialize(task)
+  # stores task
+  end
+
+  def task
+  # returns task
+  end
+end
+
+class TaskList
+  def add(task)
+    # takes task to add to our list, is an instance of Task
+  end
+
+  def list
+  # returns list of all our tasks
+  end
+end
+
 ```
 
 ## 3. Create Examples as Integration Tests
@@ -70,15 +131,11 @@ _Create examples of the classes being used together in different situations and
 combinations that reflect the ways in which the system will be used._
 
 ```ruby
-# EXAMPLE
 
-# Gets all tracks
-library = MusicLibrary.new
-track_1 = Track.new("Carte Blanche", "Veracocha")
-track_2 = Track.new("Synaesthesia", "The Thrillseekers")
-library.add(track_1)
-library.add(track_2)
-library.all # => [track_1, track_2]
+
+
+
+
 ```
 
 ## 4. Create Examples as Unit Tests
