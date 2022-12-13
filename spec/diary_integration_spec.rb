@@ -49,6 +49,7 @@ RSpec.describe "Diary integration" do
     diary.add(entry_1)
     diary.add(entry_2)
     diary.add(entry_3)
+    diary.add(entry_4)
     expect(diary.find_phone).to eq ["07800123456", "07800123321"]
   end
 end
