@@ -12,7 +12,6 @@ class Diary
   end
 
   def read_chunk(wpm, minutes)
-  # returns a string that can be read in the alotted time/speed
   end
 
   def find_phone
