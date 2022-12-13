@@ -17,6 +17,26 @@ RSpec.describe "Diary integration" do
     entry_2 = DiaryEntry.new("Tuesday", "Walked the cat, did not like it as the cat didn't like the rain")
     diary.add(entry_1)
     diary.add(entry_2)
-    expect(diary.read_chunk(2, 4)).to eq ["Walked the dog, it was great"]
+    expect(diary.find_best_entry_for_reading_time(2, 4)).to eq "Walked the dog, it was great"
+  end
+
+  it "returns nil when read_chunk is called" do
+    diary = Diary.new
+    entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
+    entry_2 = DiaryEntry.new("Tuesday", "Walked the cat, did not like it")
+    diary.add(entry_1)
+    diary.add(entry_2)
+    expect(diary.find_best_entry_for_reading_time(2, 2)).to eq nil
+  end
+
+  it "returns a list of all phone numbers from all diary entries" do
+    diary = Diary.new
+    entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
+    entry_2 = DiaryEntry.new("Tuesday", "Walked the cat, did not like it as the cat didn't like the rain")
+    entry_3 = DiaryEntry.new("Wednesday", "I met Adam today and he was a complete legend, his number is 07800123456")
+    diary.add(entry_1)
+    diary.add(entry_2)
+    diary.add(entry_3)
+    expect(diary.find_phone).to eq ["07800123456"]
   end
 end

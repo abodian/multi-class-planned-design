@@ -38,6 +38,7 @@ Task => init(@task)
 │   │                         │           ├──────────────────────┤
 │   │    List                 │           │                      │
 │   │    Add                  │           │    init(@task)       │
+         Count_words
 │   │    Read_chunk           │           │    task              │
 │   │    Find_Phone           │           │                      │
 │   │                         │           │                      │
@@ -78,6 +79,10 @@ class Diary
 
   def list
   # returns all of our diary entries
+  end
+
+  def count_words
+  # returns an integer of the entry
   end
 
   def read_chunk(wpm, minutes)
@@ -147,7 +152,7 @@ entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
 entry_2 = DiaryEntry.new("Tuesday", "Walked the cat, did not like it")
 diary.add(entry_1)
 diary.add(entry_2)
-diary.read_chunk(2, 2) # => nil
+diary.find_best_entry_for_reading_time(2, 2) # => nil
 
 # 3
 diary = Diary.new
@@ -155,7 +160,7 @@ entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
 entry_2 = DiaryEntry.new("Tuesday", "Walked the cat, did not like it as the cat didn't like the rain")
 diary.add(entry_1)
 diary.add(entry_2)
-diary.read_chunk(2, 4) # => [entry_1]
+diary.find_best_entry_for_reading_time(2, 4) # => [entry_1]
 
 # 4
 diary = Diary.new
@@ -198,12 +203,17 @@ task_list.list # => [task_1, task_2]
 diary = Diary.new
 diary.list # => []
 
+
 # DiaryEntry
 
 #1
 entry = DiaryEntry.new("Monday", "Walk the dog")
 entry.title # => "Monday"
 entry.content # => "Walk the dog"
+
+#2
+diary = Diary.new
+diary.count_words # => 0
 
 # Task
 

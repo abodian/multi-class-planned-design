@@ -6,4 +6,9 @@ RSpec.describe "diary_entry tests" do
     expect(entry.title).to eq "Monday"
     expect(entry.contents).to eq "Walk the dog"
   end
+
+  it "returns 0 when count_words is called" do
+    entry = DiaryEntry.new("Monday", "")
+    expect(entry.count_words).to eq 0
+  end
 end

@@ -7,6 +7,10 @@ class DiaryEntry
   def title
     return @title
   end
+  
+  def count_words
+    @contents.split(" ").length
+  end
 
   def contents
     return @contents
