@@ -30,18 +30,17 @@ class Diary
 
   def find_phone
     phone_numbers = []
-    # contents = @contents
-    # split_entries = @my_entries
-    # @my_entries[contents].select do |entry| 
-    #   if entry.match?(/\d/)
-    #     phone_numbers << entry
-    #   end
-    # end
-    entry_contents = []
-    @my_entries[1].each do |contents|
-      entry_contents << contents
+    contents_array = []
+    @my_entries.each do |element| 
+      contents_array << element.contents
     end
-    return entry_contents
+    contents_string = contents_array.join(" ")
+    contents_string.split(" ").each do |entry|
+      if entry.match(/\d{11}/)
+        phone_numbers << entry
+      end
+    end
+    return phone_numbers
   end
 end
 
