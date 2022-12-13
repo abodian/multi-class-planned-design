@@ -90,7 +90,7 @@ class Diary
 end
 
 class DiaryEntry
-  def initialize(title,contents)
+  def initialize(title, contents)
   # stores title and contents of entry
   end
 
@@ -131,24 +131,91 @@ _Create examples of the classes being used together in different situations and
 combinations that reflect the ways in which the system will be used._
 
 ```ruby
+# Diary Integration
 
+# 1 
+diary = Diary.new
+entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
+entry_2 = DiaryEntry.new("Tuesday", "Walked the cat, did not like it")
+diary.add(entry_1)
+diary.add(entry_2)
+diary.list # => [entry_1, entry_2]
 
+# 2
+diary = Diary.new
+entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
+entry_2 = DiaryEntry.new("Tuesday", "Walked the cat, did not like it")
+diary.add(entry_1)
+diary.add(entry_2)
+diary.read_chunk(2, 2) # => nil
 
+# 3
+diary = Diary.new
+entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
+entry_2 = DiaryEntry.new("Tuesday", "Walked the cat, did not like it as the cat didn't like the rain")
+diary.add(entry_1)
+diary.add(entry_2)
+diary.read_chunk(2, 4) # => [entry_1]
 
+# 4
+diary = Diary.new
+entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
+entry_2 = DiaryEntry.new("Tuesday", "Walked the cat, did not like it as the cat didn't like the rain")
+entry_3 = DiaryEntry.new("Wednesday", "I met Adam today and he was a complete legend, his number is 07800123456")
+diary.add(entry_1)
+diary.add(entry_2)
+diary.add(entry_3)
+diary.find_phone # => ["07800123456"]
 
+# 5
+diary = Diary.new
+entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
+entry_2 = DiaryEntry.new("Tuesday", "Walked the cat, did not like it as the cat didn't like the rain")
+entry_3 = DiaryEntry.new("Wednesday", "I met Adam today and he was a complete legend, his number is 07800123456")
+entry_4 = DiaryEntry.new("Thursday", "I met Alex today, he isn't as cool as Adam, his number is 07900654321")
+diary.add(entry_1)
+diary.add(entry_2)
+diary.add(entry_3)
+diary.find_phone # => ["07800123456", 07900654321]
+
+# Tasks Integration
+
+# 1 
+task_list = TaskList.new
+task_1 = Task.new("Walk the dog")
+task_2 = Task.new("Clean the cat")
+task_list.add(task_1)
+task_list.add(task_2)
+task_list.list # => [task_1, task_2]
 ```
 
 ## 4. Create Examples as Unit Tests
 
-_Create examples, where appropriate, of the behaviour of each relevant class at
-a more granular level of detail._
-
 ```ruby
-# EXAMPLE
+# Diary
 
-# Constructs a track
-track = Track.new("Carte Blanche", "Veracocha")
-track.title # => "Carte Blanche"
+#1
+diary = Diary.new
+diary.list # => []
+
+# DiaryEntry
+
+#1
+entry = DiaryEntry.new("Monday", "Walk the dog")
+entry.title # => "Monday"
+entry.content # => "Walk the dog"
+
+# Task
+
+#1
+todo = Task.new("Clean the car")
+todo.task # => [todo]
+
+# TaskList
+
+#1 
+task_list = TaskList.new
+task_list.list # => []
 ```
 
 _Encode each example as a test. You can add to the above list as you go._
