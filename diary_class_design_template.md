@@ -24,56 +24,22 @@ I want to see a list of all of the mobile phone numbers in all my diary entries
 
 ## 2. Design the Class System
 
-Diary => list, add(DiaryEntry instances), read_chunk, find_phone
+Diary => list, add(DiaryEntry instances), read_chunk, find_phone, find_todo, list_todo
 DiaryEntry => init(title, contents)
-TaskList => list, add
-Task => init(@task)
 
 ```
-│
-│
-│   ┌─────────────────────────┐
-│   │         Diary           │           ┌──────────────────────┐
-│   ├─────────────────────────┤           │        Task          │
-│   │                         │           ├──────────────────────┤
-│   │    List                 │           │                      │
-│   │    Add                  │           │    init(@task)       │
-         Count_words
-│   │    Read_chunk           │           │    task              │
-│   │    Find_Phone           │           │                      │
-│   │                         │           │                      │
-│   └─────────────┬───────────┘           └──────────▲───────────┘
-│                 │                                  │
-│                 │                                  │
-│                 │                                  │
-│                 │                                  │
-│                 │                                  │
-│                 │                                  │
-│    ┌────────────▼────────────┐           ┌─────────┴───────────┐
-│    │       DiaryEntry        │           │        TaskList     │
-│    ├─────────────────────────┤           ├─────────────────────┤
-│    │                         │           │                     │
-│    │    init(title,contents) │           │     List            │
-│    │    title                │           │     Add             │
-│    │    contents             │           │                     │
-│    │                         │           │                     │
-│    │                         │           │                     │
-│    └─────────────────────────┘           │                     │
-│                                          ├─────────────────────┤
-
-Alternative?
 ┌─────────────────────────────┐
 │                             │
 │   Diary                     │
 │                             │
 │  ------------------------   │
 │                             │
-│    list                     │
+│    list_diary               │
 │    add                      │
 │    find_best_entry_for_time │
 │    find_phone               │
 │    find_todo                │
-│                             │
+│    list_todo                │
 │                             │
 │                             │
 │                             │
@@ -85,11 +51,11 @@ Alternative?
              │                                 │
 ┌────────────▼────────────────┐        ┌───────▼─────────────────────┐
 │                             │        │                             │
-│  DiaryEntry                 │        │     TaskList                │
+│  DiaryEntry                 │        │    Ignore                   │
 │                             │        │                             │
-│  ------------------------   │        │  -----------------------    │
+│  ------------------------   │        │                             │
 │                             │        │                             │
-│    init(title,contents)     │        │   list                      │
+│    init(title,contents)     │        │                             │
 │    title                    │        │                             │
 │    contents                 │        │                             │
 │                             │        │                             │
@@ -97,7 +63,7 @@ Alternative?
 │                             │        │                             │
 │                             │        │                             │
 │                             │        │                             │
-│                             │        │                             │
+│                             │        │                          
 └─────────────────────────────┘        └─────────────────────────────┘
 
 ```
@@ -146,25 +112,6 @@ class DiaryEntry
   end
 end
 
-class Task
-  def initialize(task)
-  # stores task
-  end
-
-  def task
-  # returns task
-  end
-end
-
-class TaskList
-  def add(task)
-    # takes task to add to our list, is an instance of Task
-  end
-
-  def list
-  # returns list of all our tasks
-  end
-end
 
 ```
 
@@ -263,18 +210,6 @@ entry.content # => "Walk the dog"
 diary = Diary.new
 diary.count_words # => 0
 
-# Task
-
-#1
-todo = Task.new("Clean the car")
-todo.task # => [todo]
-
-# TaskList
-
-#1 
-task_list = TaskList.new
-task_list.list # => []
-```
 
 _Encode each example as a test. You can add to the above list as you go._
 

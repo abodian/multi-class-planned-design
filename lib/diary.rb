@@ -4,6 +4,7 @@ class Diary
   def initialize
   @my_entries = []
   @entry_hash = {}
+  @todo_array = []
   end
 
   def add(entry)
@@ -40,7 +41,6 @@ class Diary
 
   def find_todo
     contents_array = []
-    todo_array = []
     todo_index_stop = []
     n = 0
     @my_entries.each do |element|
@@ -51,15 +51,17 @@ class Diary
         word_array = entry.split(" ")
         todo_index_start = word_array.find_index("TODO:")
         word_array.each do |entry|
-          if entry.include?(".")
-            todo_index_stop << word_array.find_index(entry)
-          end
+          entry.include?(".") ? todo_index_stop << word_array.find_index(entry) : nil
         end
-        todo_array << word_array[todo_index_start..todo_index_stop[n]].join(" ")
+        @todo_array << word_array[todo_index_start..todo_index_stop[n]].join(" ")
         n += 1
       end
     end
-    return todo_array
+    return @todo_array
+  end
+
+  def list_todo
+    return @todo_array
   end
 end
 
