@@ -52,4 +52,33 @@ RSpec.describe "Diary integration" do
     diary.add(entry_4)
     expect(diary.find_phone).to eq ["07800123456", "07800123321"]
   end
+
+  it "returns a todo task when included in a diary entry" do
+    diary = Diary.new
+    entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
+    entry_2 = DiaryEntry.new("Thursday", "TODO: Clean the kitchen.")
+    diary.add(entry_1)
+    diary.add(entry_2)
+    expect(diary.find_todo).to eq ["TODO: Clean the kitchen."]
+  end
+
+  it "returns a todo task when included in a diary entry" do
+    diary = Diary.new
+    entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
+    entry_2 = DiaryEntry.new("Thursday", "Today I have a TODO: Clean the kitchen.")
+    diary.add(entry_1)
+    diary.add(entry_2)
+    expect(diary.find_todo).to eq ["TODO: Clean the kitchen."]
+  end
+  
+  it "returns a todo task when included in a diary entry" do
+    diary = Diary.new
+    entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
+    entry_2 = DiaryEntry.new("Thursday", "Today I have a TODO: Clean the kitchen.")
+    entry_3 = DiaryEntry.new("Friday", "Today I have a TODO: PARTAY. I'm looking forward to tomorrow.")
+    diary.add(entry_1)
+    diary.add(entry_2)
+    diary.add(entry_3)
+    expect(diary.find_todo).to eq ["TODO: Clean the kitchen.", "TODO: PARTAY."]
+  end
 end

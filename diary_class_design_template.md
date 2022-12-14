@@ -90,7 +90,7 @@ Alternative?
 │  ------------------------   │        │  -----------------------    │
 │                             │        │                             │
 │    init(title,contents)     │        │   list                      │
-│    title                    │        │   complete                  │
+│    title                    │        │                             │
 │    contents                 │        │                             │
 │                             │        │                             │
 │                             │        │                             │
@@ -219,7 +219,17 @@ entry_4 = DiaryEntry.new("Thursday", "I met Alex today, he isn't as cool as Adam
 diary.add(entry_1)
 diary.add(entry_2)
 diary.add(entry_3)
+diary.add(entry_4)
 diary.find_phone # => ["07800123456", 07900654321]
+
+# 6 
+diary = Diary.new
+entry_1 = DiaryEntry.new("Monday", "Walked the dog, it was great")
+entry_2 = DiaryEntry.new("Thursday", "TODO: Clean the kitchen.")
+diary.add(entry_1)
+diary.add(entry_2)
+diary.find_todo # => ["TODO: Clean the kitchen"]
+
 
 # Tasks Integration
 

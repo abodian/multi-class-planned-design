@@ -37,4 +37,30 @@ class Diary
     phone_numbers = contents_string.scan(/\d{11}/)
     return phone_numbers
   end
+
+  def find_todo
+    contents_array = []
+    todo_array = []
+    todo_index_stop = []
+    n = 0
+    @my_entries.each do |element|
+      contents_array << element.contents
+    end
+    contents_array.each do |entry|
+      if entry.include?("TODO")
+        word_array = entry.split(" ")
+        todo_index_start = word_array.find_index("TODO:")
+        word_array.each do |entry|
+          if entry.include?(".")
+            todo_index_stop << word_array.find_index(entry)
+          end
+        end
+        todo_array << word_array[todo_index_start..todo_index_stop[n]].join(" ")
+        n += 1
+      end
+    end
+    return todo_array
+  end
 end
+
+  
